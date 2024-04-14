@@ -4,5 +4,7 @@ One simple python function to save used indices to a locked temp file and return
 
 ## Usage
 
->>> from index_next import get_next_index
->>> idx = get_next_index()
+```python
+from index_next import get_next_index
+idx = get_next_index()
+```
