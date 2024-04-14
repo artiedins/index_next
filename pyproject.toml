@@ -1,3 +1,5 @@
 [project]
 name = "index_next"
 version = "0.1"
+description = "usage: from index_next import get_next_index"
+readme = "README.md"
