@@ -9,11 +9,17 @@ def get_next_index(used_indices_file="used_indices.txt"):
 
     with open(used_indices_file, "r+") as f:
         fcntl.flock(f, fcntl.LOCK_EX)
-        indices = [int(line.strip()) for line in f.readlines()]
+
+        indices = []
+        for line in f.readlines():
+            try:
+                indices.append(int(line.strip()))
+            except:
+                continue
+
         next_index = 0
         while next_index in indices:
             next_index += 1
         f.write(str(next_index) + "\n")
 
     return next_index
-  
