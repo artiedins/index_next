@@ -1,8 +1,8 @@
 import os
 import fcntl
+import random
 
-
-def get_next_index(used_indices_file="used_indices.txt"):
+def get_next_index(used_indices_file="used_indices.txt", random_int=None):
     if not os.path.exists(used_indices_file):
         with open(used_indices_file, "a") as f:
             pass
@@ -10,16 +10,23 @@ def get_next_index(used_indices_file="used_indices.txt"):
     with open(used_indices_file, "r+") as f:
         fcntl.flock(f, fcntl.LOCK_EX)
 
-        indices = []
+        used_indices = set()
         for line in f.readlines():
             try:
-                indices.append(int(line.strip()))
+                used_indices.add(int(line.strip()))
             except:
                 continue
 
-        next_index = 0
-        while next_index in indices:
-            next_index += 1
+        if random_int_max is not None:
+            available_indices = set(range(random_int)) - used_indices
+            if not available_indices:
+                raise ValueError(f"All integers less than {random_int} have been used.")
+            next_index = random.choice(list(available_indices))
+        else:
+            next_index = 0
+            while next_index in used_indices:
+                next_index += 1
+
         f.write(str(next_index) + "\n")
 
     return next_index
