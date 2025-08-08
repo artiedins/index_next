@@ -17,7 +17,7 @@ def get_next_index(used_indices_file="used_indices.txt", random_int=None):
             except:
                 continue
 
-        if random_int_max is not None:
+        if random_int is not None:
             available_indices = set(range(random_int)) - used_indices
             if not available_indices:
                 raise ValueError(f"All integers less than {random_int} have been used.")
